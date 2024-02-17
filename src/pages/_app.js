@@ -1,28 +1,12 @@
-// import("next").NextConfig
+import "@/styles/style.css"
 
 import React, { useState, useEffect, useRef } from "react"
-import axios from "@/lib/axios"
+import Axios from "@/lib/axios"
 
-// import LoginPopUp from "@/components/Auth/LoginPopUp"
 // import TopNav from "@/components/Layouts/TopNav"
 import Messages from "@/components/core/Messages"
 
 const App = ({ Component, pageProps }) => {
-	/*
-	 *
-	 * Register service worker */
-	if (typeof window !== "undefined" && window.location.href.match(/https/)) {
-		if ("serviceWorker" in navigator) {
-			window.addEventListener("load", () => {
-				navigator.serviceWorker.register("/sw.js")
-				// .then((reg) => console.log('Service worker registered', reg))
-				// .catch((err) => console.log('Service worker not registered', err));
-			})
-		}
-	}
-
-	const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL
-
 	// Function for checking local storage
 	const getLocalStorage = (state) => {
 		if (typeof window !== "undefined" && localStorage.getItem(state)) {
@@ -64,14 +48,29 @@ const App = ({ Component, pageProps }) => {
 
 	// Function for fetching data from API
 	const get = (endpoint, setState, storage = null, errors = true) => {
-		axios
-			.get(`/api/${endpoint}`)
+		Axios.get(`/api/${endpoint}`)
 			.then((res) => {
 				var data = res.data ? res.data.data : []
 				setState(data)
 				storage && setLocalStorage(storage, data)
 			})
 			.catch(() => errors && setErrors([`Failed to fetch ${endpoint}`]))
+	}
+
+	// Function for fetching data from API
+	const getPaginated = (endpoint, setState, storage = null, errors = true) => {
+		Axios.get(`/api/${endpoint}`)
+			.then((res) => {
+				var data = res.data ? res.data : []
+				setState(data)
+				storage && setLocalStorage(storage, data)
+			})
+			.catch(() => errors && setErrors([`Failed to fetch ${endpoint}`]))
+	}
+
+	// Function for showing iteration
+	const iterator = (key, list) => {
+		return key + 1 + list.meta.per_page * (list.meta.current_page - 1)
 	}
 
 	// Function for getting errors from responses
@@ -88,26 +87,25 @@ const App = ({ Component, pageProps }) => {
 
 	// Fetch data on page load
 	useEffect(() => {
-
 		get("auth", setAuth, "auth", false)
 	}, [])
 
-	// All states
 	const GLOBAL_STATE = {
-		baseUrl,
-		get,
-		getErrors,
 		getLocalStorage,
 		setLocalStorage,
-		login,
-		setLogin,
 		url,
-		auth,
-		setAuth,
 		messages,
 		setMessages,
 		errors,
 		setErrors,
+		get,
+		getPaginated,
+		iterator,
+		getErrors,
+		login,
+		setLogin,
+		auth,
+		setAuth,
 	}
 
 	return (

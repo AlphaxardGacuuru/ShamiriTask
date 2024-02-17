@@ -4,9 +4,11 @@ import Link from "next/link"
 import Axios from "@/lib/axios"
 import Btn from "@/components/core/Btn"
 
-const login = (props) => {
+const register = (props) => {
+	const [name, setName] = useState("")
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
+	const [passwordConfirmation, setPasswordConfirmation] = useState("")
 	const [loading, setLoading] = useState()
 
 	const onSubmit = (e) => {
@@ -15,9 +17,11 @@ const login = (props) => {
 		e.preventDefault()
 
 		Axios.get("/sanctum/csrf-cookie").then(() => {
-			Axios.post(`/login`, {
+			Axios.post(`/register`, {
+				name: name,
 				email: email,
 				password: password,
+				password_confirmation: passwordConfirmation,
 				device_name: "deviceName",
 				remember: "checked",
 			})
@@ -29,8 +33,8 @@ const login = (props) => {
 					props.setLocalStorage("sanctumToken", encryptedToken(res.data.data))
 					// Update Logged in user
 					props.get(`auth`, props.setAuth, "auth", false)
-					// Reload page
-					setTimeout(() => window.location.reload(), 1000)
+					// Redirect to Home
+					setTimeout(() => router.push("/"), 500)
 				})
 				.catch((err) => {
 					// Remove loader
@@ -51,12 +55,34 @@ const login = (props) => {
 					alt="Your Company"
 				/>
 				<h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-					Sign in to your account
+					Sign up for an account
 				</h2>
 			</div>
 
 			<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
 				<form method="POST" action="" className="space-y-6" onSubmit={onSubmit}>
+					{/* Name */}
+					<div>
+						<label
+							htmlFor="name"
+							className="block text-sm font-medium leading-6 text-gray-900">
+							Name
+						</label>
+						<div className="mt-2">
+							<input
+								id="name"
+								name="name"
+								type="name"
+								autoComplete="name"
+								required
+								className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+								onChange={(e) => setName(e.target.value)}
+							/>
+						</div>
+					</div>
+					{/* Name End */}
+
+					{/* Email */}
 					<div>
 						<label
 							htmlFor="email"
@@ -75,13 +101,38 @@ const login = (props) => {
 							/>
 						</div>
 					</div>
+					{/* Email End */}
 
+					{/* Password */}
 					<div>
 						<div className="flex items-center justify-between">
 							<label
 								htmlFor="password"
 								className="block text-sm font-medium leading-6 text-gray-900">
 								Password
+							</label>
+						</div>
+						<div className="mt-2">
+							<input
+								id="password"
+								name="password"
+								type="password"
+								autoComplete="current-password"
+								required
+								className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+								onChange={(e) => setPassword(e.target.value)}
+							/>
+						</div>
+					</div>
+					{/* Password End */}
+
+					{/* Password Confirmation */}
+					<div>
+						<div className="flex items-center justify-between">
+							<label
+								htmlFor="password"
+								className="block text-sm font-medium leading-6 text-gray-900">
+								Confirm Password
 							</label>
 							<div className="text-sm">
 								<a
@@ -99,11 +150,13 @@ const login = (props) => {
 								autoComplete="current-password"
 								required
 								className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-								onChange={(e) => setPassword(e.target.value)}
+								onChange={(e) => setPasswordConfirmation(e.target.value)}
 							/>
 						</div>
 					</div>
+					{/* Password Confirmation End */}
 
+					{/* Button */}
 					<div>
 						<Btn
 							type="submit"
@@ -112,13 +165,14 @@ const login = (props) => {
 							loading={loading}
 						/>
 					</div>
+					{/* Button End */}
 				</form>
 
 				<p className="mt-10 text-center text-sm text-gray-500">
-					Not a member?{" "}
-					<Link href="/register">
+					Already a member?{" "}
+					<Link href="/login">
 						<a className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-							Sign Up
+							Sign in
 						</a>
 					</Link>
 				</p>
@@ -127,4 +181,4 @@ const login = (props) => {
 	)
 }
 
-export default login
+export default register
