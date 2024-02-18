@@ -3,7 +3,7 @@ import "@/styles/style.css"
 import React, { useState, useEffect, useRef } from "react"
 import Axios from "@/lib/axios"
 
-// import TopNav from "@/components/Layouts/TopNav"
+import TopNav from "@/components/layouts/TopNav"
 import Messages from "@/components/core/Messages"
 
 const App = ({ Component, pageProps }) => {
@@ -110,10 +110,8 @@ const App = ({ Component, pageProps }) => {
 
 	return (
 		<div>
-			{/* <LoginPopUp {...GLOBAL_STATE} /> */}
-			{/* <TopNav {...GLOBAL_STATE} /> */}
+			<TopNav {...GLOBAL_STATE} />
 			<Component {...pageProps} {...GLOBAL_STATE} />
-			{/* <BottomNav {...GLOBAL_STATE} /> */}
 			<Messages {...GLOBAL_STATE} />
 		</div>
 	)

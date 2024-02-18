@@ -50,6 +50,11 @@ const login = (props) => {
 					src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
 					alt="Your Company"
 				/>
+				<Link href="/">
+					<a className="text-sm font-semibold leading-6 text-gray-900">
+						<span aria-hidden="true">&larr;</span> Back
+					</a>
+				</Link>
 				<h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
 					Sign in to your account
 				</h2>
@@ -105,12 +110,7 @@ const login = (props) => {
 					</div>
 
 					<div>
-						<Btn
-							type="submit"
-							btnText="Sign in"
-							btnClass="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-							loading={loading}
-						/>
+						<Btn type="submit" btnText="Sign in" loading={loading} />
 					</div>
 				</form>
 

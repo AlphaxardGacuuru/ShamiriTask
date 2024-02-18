@@ -1,5 +1,4 @@
 const Messages = ({ messages, setMessages, errors, setErrors }) => {
-	
 	// Reset Messages and Errors to null after 3 seconds
 	if (errors.length > 0 || messages.length > 0) {
 		setTimeout(() => setErrors([]), 2900)
@@ -15,7 +14,7 @@ const Messages = ({ messages, setMessages, errors, setErrors }) => {
 				{messages.map((message, key) => (
 					<div
 						key={key}
-						className="bg-success p-2 mt-2"
+						className="bg-green-500 shadow p-2 mt-2"
 						style={{ transition: "0.3s" }}>
 						{message}
 					</div>
@@ -24,9 +23,8 @@ const Messages = ({ messages, setMessages, errors, setErrors }) => {
 				{errors.map((error, key) => (
 					<div
 						key={key}
-						className="p-2 mt-2"
+						className="bg-white shadow p-2 mt-2"
 						style={{
-							backgroundColor: "#232323",
 							transition: "0.3s",
 						}}>
 						{error}

@@ -47,7 +47,7 @@ class MyDocument extends Document {
 					{/* Tailwind */}
 					<script src="https://cdn.tailwindcss.com"></script>
 				</Head>
-				<body className="antialiased h-full">
+				<body className="antialiased h-full bg-white">
 					<noscript>
 						<center>
 							<h2 className="m-5">

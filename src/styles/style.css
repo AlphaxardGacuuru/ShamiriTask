@@ -1,3 +1,231 @@
+/* :: Header Area CSS */
+.header-area {
+	position: fixed;
+	z-index: 995;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: auto;
+	-webkit-transition-duration: 500ms;
+	transition-duration: 500ms;
+	padding: 0px 20px;
+	/* background-color: #FFF; */
+}
+
+.header-area .logo-area a {
+	color: #232323;
+	font-size: 28px;
+	font-weight: 100;
+}
+
+@media only screen and (max-width: 767px) {
+	.header-area .logo-area a {
+		font-size: 18px;
+	}
+}
+
+.main-logo {
+	color: #232323;
+	min-width: 200px;
+	display: block;
+	font-size: 24px;
+	min-width: 200px
+}
+
+@media only screen and (max-width: 767px) {
+	.main-logo {
+		min-width: 120px
+	}
+}
+
+.header-area .menu-content-area .header-social-area {
+	margin-right: 30px;
+}
+
+.header-area .menu-content-area .header-social-area a {
+	font-size: 18px;
+	padding: 0 10px;
+	color: #232323;
+}
+
+#menuIcon {
+	font-size: 25px;
+	color: #232323;
+}
+
+@media only screen and (max-width: 767px) {
+	.header-area .menu-content-area .header-social-area a {
+		padding: 10px 5px;
+		font-size: 14px;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.header-area .menu-content-area .header-social-area {
+		padding: 10px 5px;
+		margin-right: 0px;
+	}
+}
+
+.header-area.sticky {
+	background-color: #0077B6;
+}
+
+@media only screen and (max-width: 767px) {
+	.header-area {
+		padding: 0px 10px;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	#menuIcon {
+		font-size: 20px;
+	}
+}
+
+/* Left Nav */
+.leftMenu {
+	position: fixed;
+	width: 50px;
+	height: 100%;
+	top: 0;
+	left: 0;
+	/* z-index: 994; */
+	/* text-align: center; */
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	padding: 50px 0px;
+	-webkit-transition-duration: 800ms;
+	transition-duration: 800ms;
+	/* box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); */
+}
+
+.left-main {
+	margin-left: 50px;
+	-webkit-transition-duration: 800ms;
+	transition-duration: 800ms;
+}
+
+.leftMenu .nav-link-icon {
+	display: block;
+}
+
+.leftMenu .nav-link-text {
+	display: none;
+	padding: 10px;
+}
+
+.leftMenu .closeIcon {
+	position: absolute;
+	right: 20px;
+	top: 70px;
+	z-index: 9;
+	color: #232323;
+	font-size: 15px;
+	cursor: pointer;
+	-webkit-transition-duration: 750ms;
+	transition-duration: 750ms;
+}
+
+.leftMenu .closeIcon:hover {
+	-webkit-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.leftMenu .logo-area a {
+	color: #232323;
+	font-size: 30px;
+	display: block;
+	font-weight: 100;
+}
+
+.leftMenu p {
+	margin-bottom: 0;
+	color: #232323;
+}
+
+.leftMenu a {
+	font-weight: 300;
+	color: #232323;
+}
+
+.leftMenu .nav-link {
+	color: #FFF;
+	font-size: 15px;
+	position: relative;
+	z-index: 1;
+	font-weight: 300;
+	padding: 5px 15px;
+}
+
+.leftMenu .nav-link span {
+	float: left;
+	padding-right: 15px;
+}
+
+@media only screen and (max-width: 767px) {
+	.leftMenu .closeIcon {
+		right: 20px;
+		top: 70px;
+		font-size: 15px;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.leftMenu .logo-area a {
+		font-size: 30px;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.leftMenu .nav-link {
+		font-size: 14px;
+		/* padding: 10px; */
+	}
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+	.leftMenu {
+		padding: 50px 0px;
+	}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+	.leftMenu {
+		padding: 50px 0px;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.leftMenu {
+		padding: 50px 0px;
+	}
+}
+
+/* :: Menu Open CSS */
+.left-open .leftMenu {
+	width: 200px;
+}
+
+.left-open .leftMenu .nav-link-icon {
+	display: inline;
+}
+
+.left-open .leftMenu .nav-link-text {
+	display: inline;
+	transition: display 800ms;
+}
+
+.left-open .left-main {
+	/* transition: margin-left 800ms; */
+	transition-duration: 800ms;
+	margin-left: 200px;
+}
+
+/* Left Nav End */
+
 /* The snackbar - position it at the bottom and in the middle of the screen */
 #snackbar {
 	visibility: hidden;

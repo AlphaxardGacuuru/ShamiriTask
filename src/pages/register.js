@@ -1,10 +1,13 @@
 import React, { useState } from "react"
+import { useRouter } from "next/router"
 import Link from "next/link"
 
 import Axios from "@/lib/axios"
 import Btn from "@/components/core/Btn"
 
 const register = (props) => {
+	const router = useRouter()
+
 	const [name, setName] = useState("")
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
@@ -30,7 +33,7 @@ const register = (props) => {
 					// Remove loader
 					setLoading(false)
 					// Encrypt and Save Sanctum Token to Local Storage
-					props.setLocalStorage("sanctumToken", encryptedToken(res.data.data))
+					props.setLocalStorage("sanctumToken", res.data.data)
 					// Update Logged in user
 					props.get(`auth`, props.setAuth, "auth", false)
 					// Redirect to Home
@@ -54,6 +57,11 @@ const register = (props) => {
 					src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
 					alt="Your Company"
 				/>
+				<Link href="/">
+					<a className="text-sm font-semibold leading-6 text-gray-900">
+						<span aria-hidden="true">&larr;</span> Back
+					</a>
+				</Link>
 				<h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
 					Sign up for an account
 				</h2>
@@ -144,7 +152,7 @@ const register = (props) => {
 						</div>
 						<div className="mt-2">
 							<input
-								id="password"
+								id="password-confirmation"
 								name="password"
 								type="password"
 								autoComplete="current-password"
@@ -158,12 +166,7 @@ const register = (props) => {
 
 					{/* Button */}
 					<div>
-						<Btn
-							type="submit"
-							btnText="Sign in"
-							btnClass="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-							loading={loading}
-						/>
+						<Btn type="submit" btnText="Sign in" loading={loading} />
 					</div>
 					{/* Button End */}
 				</form>
