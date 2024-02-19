@@ -1,3 +1,4 @@
+import "bootstrap/dist/css/bootstrap.css"
 import "@/styles/style.css"
 
 import React, { useState, useEffect, useRef } from "react"
@@ -40,11 +41,15 @@ const App = ({ Component, pageProps }) => {
 
 	const url = process.env.NEXT_PUBLIC_BACKEND_URL
 
+	const apiUrl = "https://rickandmortyapi.com/api"
+
 	// Declare states
 	const [messages, setMessages] = useState([])
 	const [errors, setErrors] = useState([])
 	const [login, setLogin] = useState()
 	const [auth, setAuth] = useState(getLocalStorageAuth("auth"))
+	const [locations, setLocations] = useState([])
+	const [characters, setCharacters] = useState([])
 
 	// Function for fetching data from API
 	const get = (endpoint, setState, storage = null, errors = true) => {
@@ -87,6 +92,9 @@ const App = ({ Component, pageProps }) => {
 
 	// Fetch data on page load
 	useEffect(() => {
+		// Import Js for Bootstrap
+		import("bootstrap/dist/js/bootstrap")
+
 		get("auth", setAuth, "auth", false)
 	}, [])
 
@@ -106,6 +114,11 @@ const App = ({ Component, pageProps }) => {
 		setLogin,
 		auth,
 		setAuth,
+		apiUrl,
+		locations,
+		setLocations,
+		characters,
+		setCharacters
 	}
 
 	return (

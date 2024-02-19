@@ -1,3 +1,23 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700");
+
+html,
+body {
+	font-family: "Roboto", sans-serif;
+	overflow-x: hidden;
+	max-width: 100%;
+	/* scroll-snap-type: y mandatory; */
+}
+
+a {
+	-webkit-transition-duration: 500ms;
+	transition-duration: 500ms;
+	color: #232323;
+	text-decoration: none;
+	outline: none;
+	font-size: 14px;
+	font-weight: 100;
+}
+
 /* :: Header Area CSS */
 .header-area {
 	position: fixed;
@@ -9,11 +29,11 @@
 	-webkit-transition-duration: 500ms;
 	transition-duration: 500ms;
 	padding: 0px 20px;
-	/* background-color: #FFF; */
+	background-color: #000;
 }
 
 .header-area .logo-area a {
-	color: #232323;
+	color: #FFFFFF;
 	font-size: 28px;
 	font-weight: 100;
 }
@@ -25,7 +45,7 @@
 }
 
 .main-logo {
-	color: #232323;
+	color: #fff;
 	min-width: 200px;
 	display: block;
 	font-size: 24px;
@@ -45,12 +65,12 @@
 .header-area .menu-content-area .header-social-area a {
 	font-size: 18px;
 	padding: 0 10px;
-	color: #232323;
+	color: #FFFFFF;
 }
 
 #menuIcon {
 	font-size: 25px;
-	color: #232323;
+	color: #FFFFFF;
 }
 
 @media only screen and (max-width: 767px) {
@@ -122,7 +142,7 @@
 	right: 20px;
 	top: 70px;
 	z-index: 9;
-	color: #232323;
+	color: #FFFFFF;
 	font-size: 15px;
 	cursor: pointer;
 	-webkit-transition-duration: 750ms;
@@ -135,7 +155,7 @@
 }
 
 .leftMenu .logo-area a {
-	color: #232323;
+	color: #FFFFFF;
 	font-size: 30px;
 	display: block;
 	font-weight: 100;
@@ -143,12 +163,12 @@
 
 .leftMenu p {
 	margin-bottom: 0;
-	color: #232323;
+	color: #FFFFFF;
 }
 
 .leftMenu a {
 	font-weight: 300;
-	color: #232323;
+	color: #FFFFFF;
 }
 
 .leftMenu .nav-link {
@@ -233,7 +253,7 @@
 	margin-left: -125px;
 	margin-right: -125px;
 	padding: 5px;
-	color: #232323;
+	color: #FFFFFF;
 	text-align: center;
 	/* Center the snackbar */
 	left: 50%;
@@ -304,4 +324,134 @@
 		bottom: 0;
 		opacity: 0;
 	}
+}
+
+/* Location Media */
+.location-media {
+	/* position: relative; */
+	margin: 0;
+	padding: 0;
+}
+
+.location-poster {
+	width: 100%;
+	/* height: 50em; */
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+.location-poster img {
+	width: 100%;
+	height: auto;
+	margin: 0;
+	padding: 0;
+}
+
+/* crop thumbnails */
+.location-thumbnail {
+	width: 24em;
+	height: 12em;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+.location-thumbnail img {
+	width: 100%;
+	height: auto;
+	margin: 0;
+	padding: 0;
+}
+
+.location-user-name {
+	width: 10em;
+	min-height: 1em;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: clip;
+	text-align: left;
+}
+
+.location-name {
+	width: 13em;
+	height: 1.3em;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: clip;
+	text-align: left;
+	margin-right: auto;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+	.location-name {
+		width: 15em;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.location-name {
+		width: 15em;
+	}
+}
+
+/* Location Media End */
+
+/* Loading Elements */
+/* Element loading information */
+.gradient {
+	animation-duration: 1.8s;
+	animation-fill-mode: forwards;
+	animation-iteration-count: infinite;
+	animation-name: placeHolderShimmer;
+	animation-timing-function: linear;
+	background: #f6f7f8;
+	background: linear-gradient(to right, #FFFFFF 8%, #DDD 38%, #FFFFFF 54%);
+	background-size: 1000px 640px;
+	position: relative;
+}
+
+@keyframes placeHolderShimmer {
+	0% {
+		background-position: -468px 0
+	}
+
+	100% {
+		background-position: 468px 0
+	}
+}
+
+/* Element loading information End */
+.loading-text {
+	margin: 3px;
+	border-radius: 20px;
+	color: #232323;
+}
+
+/* Loading Elements */
+/*hide scrollbars*/
+/*scrollable menu*/
+div.hidden-scroll {
+	overflow: auto;
+	white-space: nowrap;
+}
+
+div.hidden-scroll span {
+	/* display: inline-block; */
+	text-align: center;
+	margin: 1px;
+	padding: 5px 10px;
+	text-decoration: none;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hidden-scroll::-webkit-scrollbar {
+	display: none;
+}
+
+/* Hide scrollbar for IE and Edge */
+.hidden-scroll {
+	-ms-overflow-style: none;
+	/* Hide scrollbar for Firefox */
+	scrollbar-width: none;
 }

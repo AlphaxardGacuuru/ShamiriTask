@@ -45,7 +45,7 @@ class MyDocument extends Document {
 					/>
 
 					{/* Tailwind */}
-					<script src="https://cdn.tailwindcss.com"></script>
+					{/* <script src="https://cdn.tailwindcss.com"></script> */}
 				</Head>
 				<body className="antialiased h-full bg-white">
 					<noscript>
@@ -58,21 +58,6 @@ class MyDocument extends Document {
 					</noscript>
 					<Main />
 					<NextScript />
-					{/* Global site tag (gtag.js) - Google Analytics */}
-					<Script
-						async
-						src="https://www.googletagmanager.com/gtag/js?id=G-5K64MQR0RL"
-						strategy="lazyOnload"></Script>
-					<Script strategy="lazyOnload">
-						{`window.dataLayer = window.dataLayer || [];
-
-							function gtag() {
-								dataLayer.push(arguments);
-        					}
-							gtag('js', new Date());
-
-							gtag('config', 'G-5K64MQR0RL');`}
-					</Script>
 				</body>
 			</Html>
 		)
