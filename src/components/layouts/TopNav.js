@@ -21,14 +21,14 @@ const TopNav = (props) => {
 				// Remove phone from localStorage
 				localStorage.clear()
 				// Redirect
-				// router.reload()
+				router.reload()
 			})
 			.catch((err) => {
 				props.getErrors(err)
 				// Remove phone from localStorage
 				localStorage.clear()
 				// Reload
-				// router.reload()
+				router.reload()
 			})
 	}
 

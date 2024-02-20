@@ -26,7 +26,7 @@ const login = (props) => {
 					// Remove loader
 					setLoading(false)
 					// Encrypt and Save Sanctum Token to Local Storage
-					props.setLocalStorage("sanctumToken", encryptedToken(res.data.data))
+					props.setLocalStorage("sanctumToken", res.data.data)
 					// Update Logged in user
 					props.get(`auth`, props.setAuth, "auth", false)
 					// Reload page

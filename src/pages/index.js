@@ -100,7 +100,6 @@ const index = (props) => {
 				})
 			)
 
-			console.log(locations)
 			props.setLocations(locations)
 		} catch (error) {
 			// Handle error

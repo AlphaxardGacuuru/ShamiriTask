@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\CharacterService;
 use App\Models\Character;
 use Illuminate\Http\Request;
 
 class CharacterController extends Controller
 {
+    public function __construct(protected CharacterService $service)
+    {
+        //
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +31,18 @@ class CharacterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            "characterId" => "required|integer",
+            "notes" => "required|string|max:65535",
+        ]);
+
+        [$saved, $message, $character] = $this->service->store($request);
+
+        return response([
+            "status" => $saved,
+            "message" => $message,
+            "data" => $character,
+        ], 200);
     }
 
     /**
@@ -34,9 +51,9 @@ class CharacterController extends Controller
      * @param  \App\Models\Character  $character
      * @return \Illuminate\Http\Response
      */
-    public function show(Character $character)
+    public function show($id)
     {
-        //
+        return $this->service->show($id);
     }
 
     /**

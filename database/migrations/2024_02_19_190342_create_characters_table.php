@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('characters', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('character_id')->unique();
+            $table->longText('notes');
             $table->timestamps();
         });
     }
