@@ -2,7 +2,7 @@
 
 ## About Shamiri Task
 
-This app fetches Locations, Characters and Episodes from the Rick and Morty API. I decided to build the app with Next.js, Bootstrap 5 and Laravel 9 for both speed and ease of use, for persisting character notes I decided to go with Laravel and MySQL for it's simplicity and robustness if I ended up needing to do complex queries or auth. I've used both Tailwind and Bootstrap in my previous projects but since I need to do this quickly with the given time constraint I went with Bootstrap 5 because I'm just faster with it as I know most of the classes at the top of my head.
+This app fetches Locations, Characters and Episodes from the Rick and Morty API. I decided to build the app with Next.js, Bootstrap 5 and Laravel 9 for both speed and ease of use, for persisting character notes I decided to go with Laravel and MySQL for it's simplicity and robustness if I ended up needing to do complex queries or auth. I've used both Tailwind and Bootstrap in my previous projects but since I need to do this quickly with the given time constraint I went with Bootstrap 5 because I'm just faster with it as I know most of the classes at the top of my head. I have worked with Typescript only in Angular but not in React therefore I opted not to experiment on this project with it.
 
 I decided to use the REST API endpoint over the GraphQL endpoint because of the following points:
 
