@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.css"
 import "@/styles/style.css"
 
 import React, { useState, useEffect, useRef } from "react"
-import Axios from "@/lib/axios"
+import Axios from "axios"
 
 import TopNav from "@/components/layouts/TopNav"
 import Messages from "@/components/core/Messages"
@@ -98,6 +98,104 @@ const App = ({ Component, pageProps }) => {
 		get("auth", setAuth, "auth", false)
 	}, [])
 
+	/*
+	 * Extract Character IDs
+	 */
+	const extractCharacterIds = (residents) => {
+		return residents.map((url) => {
+			// Split the URL by "/" to get an array of path segments
+			const pathSegments = url.split("/")
+
+			// Filter out any empty segments
+			const nonEmptySegments = pathSegments.filter((segment) => segment !== "")
+
+			// Extract the last parameter from the filtered segments
+			const lastParameter = nonEmptySegments[nonEmptySegments.length - 1]
+
+			return parseInt(lastParameter)
+		})
+	}
+
+	/*
+	 * Extract Episode IDs
+	 */
+	const extractEpisodeIds = (episodeUrls) => {
+		return episodeUrls.map((url) => {
+			const pathSegments = url.split("/")
+			const nonEmptySegments = pathSegments.filter((segment) => segment !== "")
+			const lastParameter = nonEmptySegments[nonEmptySegments.length - 1]
+			return parseInt(lastParameter)
+		})
+	}
+
+	/*
+	 * Fetch Episodes
+	 */
+	const fetchEpisodes = async (episodeIds, apiUrl) => {
+		const episodeRequests = episodeIds.map(async (episodeId) => {
+			try {
+				const response = await Axios.get(`${apiUrl}/episode/${episodeId}`)
+				return response.data
+			} catch (error) {
+				// Handle error
+				console.error(`Error fetching episode ${episodeId}:`, error)
+				throw error
+			}
+		})
+
+		return Promise.all(episodeRequests)
+	}
+
+	/*
+	 * Fetch Characters
+	 */
+	const fetchCharacters = async (characterIds, apiUrl) => {
+		try {
+			const characters = await Promise.all(
+				characterIds.map(async (characterId) => {
+					const response = await Axios.get(`${apiUrl}/character/${characterId}`)
+					const character = response.data
+					const episodeIds = extractEpisodeIds(character.episode)
+					const episodes = await fetchEpisodes(episodeIds, apiUrl)
+					character.episodes = episodes
+					return character
+				})
+			)
+
+			return characters
+		} catch (error) {
+			// Handle error
+			console.error("Error fetching characters:", error)
+			throw error
+		}
+	}
+
+	/*
+	 * Fetch Locations
+	 */
+	const getLocations = async () => {
+		try {
+			const response = await Axios.get(`${apiUrl}/location`)
+			const locations = await Promise.all(
+				response.data.results.map(async (location) => {
+					const characterIds = extractCharacterIds(location.residents)
+					const characters = await fetchCharacters(characterIds, apiUrl)
+					location.characters = characters
+					return location
+				})
+			)
+
+			setLocations(locations)
+		} catch (error) {
+			// Handle error
+			console.error("Error fetching locations:", error)
+		}
+	}
+
+	useEffect(() => {
+		getLocations()
+	}, [])
+
 	const GLOBAL_STATE = {
 		getLocalStorage,
 		setLocalStorage,
@@ -118,7 +216,7 @@ const App = ({ Component, pageProps }) => {
 		locations,
 		setLocations,
 		characters,
-		setCharacters
+		setCharacters,
 	}
 
 	return (

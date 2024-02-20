@@ -31,7 +31,7 @@ class MyDocument extends Document {
 					<title>Shamiri Task</title>
 
 					{/* <!-- Favicon  --> */}
-					<link rel="icon" href="/storage/img/musical-note.png" />
+					<link rel="icon" href="/storage/img/profile.png" />
 
 					{/* <!-- Fonts --> */}
 					<link rel="dns-prefetch" href="//fonts.gstatic.com" />

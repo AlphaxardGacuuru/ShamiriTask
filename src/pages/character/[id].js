@@ -5,6 +5,8 @@ import Axios2 from "axios"
 
 import Img from "@/components/core/Img"
 import Btn from "@/components/core/Btn"
+import BackSVG from "@/svgs/BackSVG"
+import Link from "next/link"
 
 // This gets called on every request
 export async function getServerSideProps(context) {
@@ -31,7 +33,13 @@ const view = (props) => {
 	const [notes, setNotes] = useState("")
 	const [loading, setLoading] = useState()
 
-	useEffect(() => props.get(`characters/${id}`, setCharacter), [])
+	useEffect(
+		() =>
+			Axios.get(`/api/characters/${id}`)
+				.then((res) => setCharacter(res.data.data))
+				.catch((err) => console.log(err)),
+		[]
+	)
 
 	/*
 	 * Handle Form Submission
@@ -70,8 +78,16 @@ const view = (props) => {
 		<div className="row">
 			<div className="col-sm-4"></div>
 			<div className="col-sm-4">
-				<div className="shadow mb-5 py-5 text-center">
+				<div className="shadow m-2 mb-5 py-5 text-center">
 					<center>
+						<div className="text-start p-2">
+							<Link href="/">
+								<a className="text-primary">
+									<BackSVG />
+									<span className="fs-5">Back</span>
+								</a>
+							</Link>
+						</div>
 						{/* Profile Area */}
 						<div className="mt-4">
 							<Img

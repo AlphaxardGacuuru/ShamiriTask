@@ -14,104 +14,6 @@ const index = (props) => {
 	const [episodeName, setEpisodeName] = useState("")
 
 	/*
-	 * Extract Character IDs
-	 */
-	const extractCharacterIds = (residents) => {
-		return residents.map((url) => {
-			// Split the URL by "/" to get an array of path segments
-			const pathSegments = url.split("/")
-
-			// Filter out any empty segments
-			const nonEmptySegments = pathSegments.filter((segment) => segment !== "")
-
-			// Extract the last parameter from the filtered segments
-			const lastParameter = nonEmptySegments[nonEmptySegments.length - 1]
-
-			return parseInt(lastParameter)
-		})
-	}
-
-	/*
-	 * Extract Episode IDs
-	 */
-	const extractEpisodeIds = (episodeUrls) => {
-		return episodeUrls.map((url) => {
-			const pathSegments = url.split("/")
-			const nonEmptySegments = pathSegments.filter((segment) => segment !== "")
-			const lastParameter = nonEmptySegments[nonEmptySegments.length - 1]
-			return parseInt(lastParameter)
-		})
-	}
-
-	/*
-	 * Fetch Episodes
-	 */
-	const fetchEpisodes = async (episodeIds, apiUrl) => {
-		const episodeRequests = episodeIds.map(async (episodeId) => {
-			try {
-				const response = await Axios.get(`${apiUrl}/episode/${episodeId}`)
-				return response.data
-			} catch (error) {
-				// Handle error
-				console.error(`Error fetching episode ${episodeId}:`, error)
-				throw error
-			}
-		})
-
-		return Promise.all(episodeRequests)
-	}
-
-	/*
-	 * Fetch Characters
-	 */
-	const fetchCharacters = async (characterIds, apiUrl) => {
-		try {
-			const characters = await Promise.all(
-				characterIds.map(async (characterId) => {
-					const response = await Axios.get(`${apiUrl}/character/${characterId}`)
-					const character = response.data
-					const episodeIds = extractEpisodeIds(character.episode)
-					const episodes = await fetchEpisodes(episodeIds, apiUrl)
-					character.episodes = episodes
-					return character
-				})
-			)
-
-			return characters
-		} catch (error) {
-			// Handle error
-			console.error("Error fetching characters:", error)
-			throw error
-		}
-	}
-
-	/*
-	 * Fetch Locations
-	 */
-	const getLocations = async () => {
-		try {
-			const response = await Axios.get(`${props.apiUrl}/location`)
-			const locations = await Promise.all(
-				response.data.results.map(async (location) => {
-					const characterIds = extractCharacterIds(location.residents)
-					const characters = await fetchCharacters(characterIds, props.apiUrl)
-					location.characters = characters
-					return location
-				})
-			)
-
-			props.setLocations(locations)
-		} catch (error) {
-			// Handle error
-			console.error("Error fetching locations:", error)
-		}
-	}
-
-	useEffect(() => {
-		getLocations()
-	}, [])
-
-	/*
 	 * Highlight Status based on value
 	 */
 	const highlightStatus = (status) => {
@@ -282,51 +184,36 @@ const index = (props) => {
 																			<th></th>
 																			<th>Name</th>
 																			<th>Status</th>
-																			{/* <th>Species</th> */}
-																			{/* <th>Type</th> */}
-																			{/* <th>Gender</th> */}
-																			{/* <th>Origin</th> */}
-																			<th>Action</th>
 																		</tr>
 																	</thead>
 																	<tbody>
 																		{location.characters.map(
 																			(character, key2) => (
-																				<tr key={key2}>
-																					<td>{key2 + 1}</td>
-																					<td>
-																						<Img
-																							src={character.image}
-																							imgClass="rounded-circle bg-primary-subtle p-1"
-																							width="50px"
-																							height="50px"
-																						/>
-																					</td>
-																					<td>{character.name}</td>
-																					<td>
-																						<span
-																							className={`text-capitalize ${highlightStatus(
-																								character.status
-																							)}`}>
-																							{character.status}
-																						</span>
-																					</td>
-																					{/* <td>{character.species}</td> */}
-																					{/* <td>{character.type}</td> */}
-																					{/* <td>{character.gender}</td> */}
-																					{/* <td>{character.origin.name}</td> */}
-																					<td>
-																						<div className="d-flex">
-																							<div className="me-1">
-																								<MyLink
-																									className="btn-sm"
-																									linkTo={`/character/${character.id}`}
-																									text="view"
-																								/>
-																							</div>
-																						</div>
-																					</td>
-																				</tr>
+																				<Link
+																					href={`/character/${character.id}`}>
+																					<tr
+																						key={key2}
+																						style={{ cursor: "pointer" }}>
+																						<td>{key2 + 1}</td>
+																						<td>
+																							<Img
+																								src={character.image}
+																								imgClass="rounded-circle bg-primary-subtle p-1"
+																								width="50px"
+																								height="50px"
+																							/>
+																						</td>
+																						<td>{character.name}</td>
+																						<td>
+																							<span
+																								className={`text-capitalize ${highlightStatus(
+																									character.status
+																								)}`}>
+																								{character.status}
+																							</span>
+																						</td>
+																					</tr>
+																				</Link>
 																			)
 																		)}
 																	</tbody>

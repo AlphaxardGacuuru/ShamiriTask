@@ -34,13 +34,13 @@ a {
 
 .header-area .logo-area a {
 	color: #FFFFFF;
-	font-size: 28px;
+	font-size: 40px;
 	font-weight: 100;
 }
 
 @media only screen and (max-width: 767px) {
 	.header-area .logo-area a {
-		font-size: 18px;
+		font-size: 30px;
 	}
 }
 
